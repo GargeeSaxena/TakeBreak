@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TakeBreak</string>
+    <string name="start_timer">Start Timer</string>
+    <string name="stop_timer">Stop Timer</string>
+    <string name="timer_running">Timer is running</string>
+    <string name="timer_stopped">Timer not started</string>
+    <string name="break_interval">Break Interval</string>
+    <string name="notification_title">TakeBreak Reminder</string>
+    <string name="notification_channel_name">Break Reminders</string>
+    <string name="notification_channel_description">Notifications to remind you to take breaks</string>
+    <string name="next_break_in">Next break in: %s</string>
+    <string name="select_interval">Select interval (minutes)</string>
+</resources>
+
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TakeBreak</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧘 TakeBreak</h1>
+      <p class="subtitle">Cervical Health Companion</p>
+    </div>
+
+    <div class="content">
+      <div class="status" id="status">
+        <span id="statusText">Not active</span>
+      </div>
+
+      <!-- Work Hours -->
+      <div class="setting">
+        <label>Work Hours</label>
+        <div class="time-inputs">
+          <div class="time-group">
+            <label for="startTime" class="small-label">Start</label>
+            <input type="time" id="startTime" value="09:00">
+          </div>
+          <span class="time-separator">to</span>
+          <div class="time-group">
+            <label for="endTime" class="small-label">End</label>
+            <input type="time" id="endTime" value="23:00">
+          </div>
+        </div>
+      </div>
+
+      <!-- Break Interval -->
+      <div class="setting">
+        <label for="interval">Break Every</label>
+        <select id="interval">
+          <option value="15">15 minutes</option>
+          <option value="30" selected>30 minutes</option>
+          <option value="45">45 minutes</option>
+          <option value="60">60 minutes</option>
+        </select>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button id="startBtn" class="btn btn-primary">Activate Breaks</button>
+        <button id="stopBtn" class="btn btn-secondary" disabled>Deactivate</button>
+      </div>
+
+      <!-- Next Break Info -->
+      <div id="nextBreak" class="next-break"></div>
+
+      <!-- Snooze Warning (dynamic) -->
+      <div id="snoozeWarning"></div>
+
+      <!-- Stats (dynamic) -->
+      <div id="stats"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

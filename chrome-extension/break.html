@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TakeBreak - Health Break Time!</title>
+  <link rel="stylesheet" href="break.css">
+</head>
+<body>
+  <div class="break-container">
+    <!-- Header -->
+    <div class="break-header">
+      <h1>🧘 Time for Your Health Break!</h1>
+      <p class="subtitle">Step away from your screen for 3 minutes</p>
+    </div>
+
+    <!-- Timer Display -->
+    <div class="timer-section">
+      <div class="timer-circle">
+        <svg class="timer-svg" viewBox="0 0 100 100">
+          <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+          <circle class="timer-progress" cx="50" cy="50" r="45"></circle>
+        </svg>
+        <div class="timer-text">
+          <span id="timeRemaining">3:00</span>
+          <span class="timer-label">remaining</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Motivational Quote -->
+    <div class="quote-section">
+      <p class="quote" id="motivationalQuote"></p>
+      <p class="quote-context" id="quoteContext"></p>
+    </div>
+
+    <!-- Exercise Section -->
+    <div class="exercise-section">
+      <h2>🤸 Try This Stretch</h2>
+      <div class="exercise-card">
+        <div class="exercise-header">
+          <h3 id="exerciseName"></h3>
+          <span class="exercise-badge" id="exerciseDifficulty"></span>
+        </div>
+        <p class="exercise-target" id="exerciseTarget"></p>
+        <div class="exercise-instructions">
+          <h4>How to do it:</h4>
+          <ol id="exerciseSteps"></ol>
+        </div>
+        <p class="exercise-benefits" id="exerciseBenefits"></p>
+        <button id="nextExerciseBtn" class="btn-next-exercise">Show Another Exercise</button>
+      </div>
+    </div>
+
+    <!-- Break Complete -->
+    <div class="break-complete" id="breakComplete" style="display: none;">
+      <div class="complete-animation">✅</div>
+      <h2>Break Complete!</h2>
+      <p id="completeMessage"></p>
+      <button id="returnToWorkBtn" class="btn-primary">Return to Work Refreshed</button>
+    </div>
+
+    <!-- Early Skip Warning -->
+    <div class="skip-section">
+      <p class="skip-warning">⚠️ For best cervical health, complete the full 3 minutes</p>
+      <button id="skipBtn" class="btn-secondary">I'll finish later (Not Recommended)</button>
+    </div>
+  </div>
+
+  <script src="exercises-data.js"></script>
+  <script src="break.js"></script>
+</body>
+</html>
+
+

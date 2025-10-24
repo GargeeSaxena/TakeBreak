@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "TakeBreak",
+  "version": "0.2.0",
+  "description": "Cervical health companion for working professionals. Scheduled breaks with exercises and smart snooze system.",
+  "permissions": [
+    "alarms",
+    "notifications",
+    "storage",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
+
