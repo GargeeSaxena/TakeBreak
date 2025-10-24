@@ -81,61 +81,13 @@ function calculateNextBreakTime(startTime, endTime, interval, fromTime = new Dat
     workEnd.setDate(workEnd.getDate() + 1);
   }
 
-  // Check if we're within work hours
-  if (now < workStart) {
-    // Before work hours - first break of the day
-    return calculateFirstBreakTime(workStart, interval);
-  }
-
+  // Check if we're after work hours
   if (now >= workEnd) {
-    // After work hours - return null
     return null;
   }
 
-  // Within work hours - calculate next break
-  return calculateNextScheduledBreak(now, workEnd, interval);
-}
-
-// Calculate first break time of the day
-function calculateFirstBreakTime(workStart, interval) {
-  const firstBreak = new Date(workStart);
-  const minutes = workStart.getMinutes();
-  
-  // Round up to next interval
-  const nextInterval = Math.ceil(minutes / interval) * interval;
-  
-  if (nextInterval >= 60) {
-    firstBreak.setHours(firstBreak.getHours() + 1);
-    firstBreak.setMinutes(nextInterval - 60);
-  } else {
-    firstBreak.setMinutes(nextInterval);
-  }
-  
-  firstBreak.setSeconds(0);
-  firstBreak.setMilliseconds(0);
-  
-  return firstBreak;
-}
-
-// Calculate next scheduled break time
-function calculateNextScheduledBreak(now, workEnd, interval) {
-  const current = new Date(now);
-  const minutes = current.getMinutes();
-  
-  // Calculate next interval time
-  const nextInterval = Math.ceil((minutes + 1) / interval) * interval;
-  
-  const nextBreak = new Date(current);
-  
-  if (nextInterval >= 60) {
-    nextBreak.setHours(nextBreak.getHours() + 1);
-    nextBreak.setMinutes(nextInterval - 60);
-  } else {
-    nextBreak.setMinutes(nextInterval);
-  }
-  
-  nextBreak.setSeconds(0);
-  nextBreak.setMilliseconds(0);
+  // Calculate next break by adding interval to current time
+  const nextBreak = new Date(now.getTime() + interval * 60 * 1000);
 
   // Check if next break is within work hours
   if (nextBreak >= workEnd) {
@@ -218,10 +170,10 @@ async function handleSnooze() {
 
   if (currentCount >= MAX_SNOOZES) {
     // Last snooze warning
-    await chrome.notifications.create({
+    await chrome.notifications.create('last-snooze-warning', {
       type: 'basic',
       title: 'TakeBreak - Last Snooze!',
-      message: '⚠️ This is your last snooze. Next break is mandatory for your health!',
+      message: 'This is your last snooze. Next break is mandatory for your health!',
       priority: 2,
       requireInteraction: true
     });
@@ -264,10 +216,10 @@ async function openBreakPage(isForced = false) {
   });
 
   if (isForced) {
-    await chrome.notifications.create({
+    await chrome.notifications.create('mandatory-break', {
       type: 'basic',
       title: 'TakeBreak - Mandatory Health Break',
-      message: '🧘 Your body needs attention now! Take a 4-minute break (1 min exercise + 3 min rest) for your cervical health.',
+      message: 'Your body needs attention now! Take a 4-minute break (1 min exercise + 3 min rest) for your cervical health.',
       priority: 2,
       requireInteraction: false
     });
@@ -277,21 +229,21 @@ async function openBreakPage(isForced = false) {
 // Show break notification with snooze option
 async function showBreakNotification(snoozeCount = 0) {
   let message = '';
-  let title = 'TakeBreak - Break Time! 🧘';
+  let title = 'TakeBreak - Break Time!';
 
   if (snoozeCount === 0) {
     const messages = [
-      'Time to take a break! Your neck and shoulders need attention. 🤸 (4 min: 1 min exercise + 3 min rest)',
-      'Break time! Do a stretch and rest for 4 minutes. 👀',
-      'Stretch time! Prevent cervical issues with a 4-minute break. 🌟',
-      'Health break! 1 minute stretch + 3 minutes rest = healthier you! 💪'
+      'Time to take a break! Your neck and shoulders need attention. (4 min: 1 min exercise + 3 min rest)',
+      'Break time! Do a stretch and rest for 4 minutes.',
+      'Stretch time! Prevent cervical issues with a 4-minute break.',
+      'Health break! 1 minute stretch + 3 minutes rest = healthier you!'
     ];
     message = messages[Math.floor(Math.random() * messages.length)];
   } else if (snoozeCount === 1) {
-    title = 'TakeBreak - Second Reminder ⏰';
+    title = 'TakeBreak - Second Reminder';
     message = 'Your body is still waiting. Take a 4-minute health break!';
   } else if (snoozeCount === 2) {
-    title = 'TakeBreak - Important! ⚠️';
+    title = 'TakeBreak - Important!';
     message = 'Last chance to snooze. Your cervical health is important! Just 4 minutes needed.';
   }
 
@@ -300,8 +252,8 @@ async function showBreakNotification(snoozeCount = 0) {
     title: title,
     message: message,
     buttons: [
-      { title: '✅ Take Break Now' },
-      { title: '⏰ Snooze 5 min' }
+      { title: 'Take Break Now' },
+      { title: 'Snooze 5 min' }
     ],
     priority: 2,
     requireInteraction: true
