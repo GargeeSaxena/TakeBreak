@@ -2,7 +2,7 @@
 
 **Professional break reminder system for desk workers**. Prevent cervical issues with scheduled breaks, guided exercises, and smart snooze management.
 
-![Version](https://img.shields.io/badge/version-0.2.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Platform](https://img.shields.io/badge/platform-Chrome%20%7C%20Android-green)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 
@@ -12,8 +12,8 @@
 
 TakeBreak helps working professionals who spend long hours on laptops/phones prevent **cervical spondylosis** and neck pain through:
 - ⏰ Scheduled breaks during work hours
-- 🤸 Guided neck & shoulder exercises
-- 💪 3-minute minimum break enforcement
+- 🤸 Guided neck & shoulder exercises (1 minute)
+- 💪 4-minute structured breaks (1 min exercise + 3 min rest)
 - 🔄 Smart snooze system (max 3 times)
 - 🚨 Mandatory breaks after excessive snoozing
 
@@ -38,10 +38,11 @@ TakeBreak helps working professionals who spend long hours on laptops/phones pre
 #### Smart Break Management
 - ✅ **Snooze up to 3 times** (5 minutes each)
 - ✅ **Force break** after 3 snoozes (mandatory)
-- ✅ **3-minute minimum** break duration
+- ✅ **4-minute structured breaks** - Phase 1: 1 min exercise, Phase 2: 3 min rest
 - ✅ **Exercise guidance** - 6 neck & shoulder stretches
 - ✅ **Motivational system** - encouraging messages
 - ✅ **Progress tracking** - breaks completed
+- ✅ **Audio notifications** - Sound alerts for phase transitions
 
 ### 📱 Android App *(Coming Soon)*
 

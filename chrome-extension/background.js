@@ -267,7 +267,7 @@ async function openBreakPage(isForced = false) {
     await chrome.notifications.create({
       type: 'basic',
       title: 'TakeBreak - Mandatory Health Break',
-      message: '🧘 Your body needs attention now! Take a 3-minute break for your cervical health.',
+      message: '🧘 Your body needs attention now! Take a 4-minute break (1 min exercise + 3 min rest) for your cervical health.',
       priority: 2,
       requireInteraction: false
     });
@@ -281,18 +281,18 @@ async function showBreakNotification(snoozeCount = 0) {
 
   if (snoozeCount === 0) {
     const messages = [
-      'Time to take a break! Your neck and shoulders need attention. 🤸',
-      'Break time! Move away from screen for 3 minutes. 👀',
-      'Stretch time! Prevent cervical issues with a quick break. 🌟',
-      'Health break! Stand up, stretch, and breathe. 💪'
+      'Time to take a break! Your neck and shoulders need attention. 🤸 (4 min: 1 min exercise + 3 min rest)',
+      'Break time! Do a stretch and rest for 4 minutes. 👀',
+      'Stretch time! Prevent cervical issues with a 4-minute break. 🌟',
+      'Health break! 1 minute stretch + 3 minutes rest = healthier you! 💪'
     ];
     message = messages[Math.floor(Math.random() * messages.length)];
   } else if (snoozeCount === 1) {
     title = 'TakeBreak - Second Reminder ⏰';
-    message = 'Your body is still waiting. Take a 3-minute health break!';
+    message = 'Your body is still waiting. Take a 4-minute health break!';
   } else if (snoozeCount === 2) {
     title = 'TakeBreak - Important! ⚠️';
-    message = 'Last chance to snooze. Your cervical health is important!';
+    message = 'Last chance to snooze. Your cervical health is important! Just 4 minutes needed.';
   }
 
   await chrome.notifications.create('break-reminder', {

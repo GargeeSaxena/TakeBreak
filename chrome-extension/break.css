@@ -51,6 +51,12 @@ body {
 .subtitle {
   font-size: 18px;
   color: #718096;
+  font-weight: 600;
+  padding: 10px 20px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
 /* Timer Section */
@@ -317,6 +323,48 @@ body {
   font-weight: 500;
 }
 
+/* Phase Indicator Animation */
+@keyframes phaseTransition {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.subtitle.phase-change {
+  animation: phaseTransition 0.6s ease-in-out;
+}
+
+/* Rest Phase Special Styling */
+.rest-phase-message {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #e6fffa 0%, #d0f4ea 100%);
+  border-radius: 16px;
+  margin: 30px 0;
+  border: 3px dashed #48bb78;
+}
+
+.rest-phase-message h2 {
+  color: #48bb78;
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.rest-phase-message p {
+  color: #2d3748;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .break-container {
@@ -342,6 +390,11 @@ body {
 
   .exercise-header h3 {
     font-size: 20px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+    padding: 8px 15px;
   }
 }
 

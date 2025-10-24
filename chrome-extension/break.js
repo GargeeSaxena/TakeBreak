@@ -1,9 +1,12 @@
 // Break Page Logic - TakeBreak Chrome Extension
 
-const BREAK_DURATION = 180; // 3 minutes in seconds
-let timeRemaining = BREAK_DURATION;
+const EXERCISE_PHASE_DURATION = 60; // 1 minute for exercise
+const REST_PHASE_DURATION = 180; // 3 minutes for rest
+const TOTAL_BREAK_DURATION = EXERCISE_PHASE_DURATION + REST_PHASE_DURATION; // 4 minutes total
+let timeRemaining = TOTAL_BREAK_DURATION;
 let timerInterval = null;
 let currentExercise = null;
+let currentPhase = 'exercise'; // 'exercise' or 'rest'
 
 // DOM Elements
 const timeDisplay = document.getElementById('timeRemaining');
@@ -83,11 +86,17 @@ function loadExercise() {
 function startTimer() {
   updateTimerDisplay();
   updateTimerCircle();
+  updatePhaseDisplay();
   
   timerInterval = setInterval(() => {
     timeRemaining--;
     updateTimerDisplay();
     updateTimerCircle();
+    
+    // Check for phase transition
+    if (currentPhase === 'exercise' && timeRemaining === REST_PHASE_DURATION) {
+      transitionToRestPhase();
+    }
     
     // Change color as time progresses
     if (timeRemaining <= 60) {
@@ -110,8 +119,39 @@ function updateTimerDisplay() {
 // Update circular progress
 function updateTimerCircle() {
   const circumference = 283; // 2 * PI * radius (45)
-  const progress = (timeRemaining / BREAK_DURATION) * circumference;
+  const progress = (timeRemaining / TOTAL_BREAK_DURATION) * circumference;
   timerProgress.style.strokeDashoffset = circumference - progress;
+}
+
+// Update phase display
+function updatePhaseDisplay() {
+  const subtitle = document.querySelector('.subtitle');
+  if (currentPhase === 'exercise') {
+    subtitle.textContent = '📝 Phase 1: Do the stretch exercise (1 minute)';
+    subtitle.style.color = '#667eea';
+  } else {
+    subtitle.textContent = '🚶 Phase 2: Step away from your screen (3 minutes)';
+    subtitle.style.color = '#48bb78';
+  }
+}
+
+// Transition to rest phase
+function transitionToRestPhase() {
+  currentPhase = 'rest';
+  updatePhaseDisplay();
+  
+  // Hide exercise section and show rest message
+  document.querySelector('.exercise-section').style.display = 'none';
+  
+  // Update quote to rest message
+  quoteElement.textContent = '"Now step away from your screen and relax."';
+  quoteContext.textContent = 'Give your eyes and body a complete rest for 3 minutes';
+  
+  // Play transition sound (if available)
+  playNotificationSound();
+  
+  // Change timer color to indicate rest phase
+  timerProgress.style.stroke = '#48bb78';
 }
 
 // Complete break
@@ -175,6 +215,31 @@ function returnToWork() {
   
   // Close break page
   window.close();
+}
+
+// Play notification sound
+function playNotificationSound() {
+  try {
+    // Simple beep sound using Web Audio API
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800; // Frequency in Hz
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.5);
+  } catch (e) {
+    // Silently fail if audio doesn't work
+    console.log('Audio notification not available');
+  }
 }
 
 // Initialize on load
