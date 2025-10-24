@@ -1,6 +1,29 @@
 # How to Generate Icons for TakeBreak Extension
 
+**NOTE:** The extension works perfectly without custom icons! Chrome will use a default icon. Icons are optional but improve the visual appearance.
+
 The `icon.svg` file contains the master icon design. You need to convert it to PNG format in three sizes: 16x16, 48x48, and 128x128 pixels.
+
+## ⚠️ Important: After Creating Icons
+
+Once you have the PNG files (`icon-16.png`, `icon-48.png`, `icon-128.png`), you need to update `manifest.json`:
+
+Add these sections:
+```json
+"action": {
+  "default_popup": "popup.html",
+  "default_icon": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+},
+"icons": {
+  "16": "icons/icon-16.png",
+  "48": "icons/icon-48.png",
+  "128": "icons/icon-128.png"
+}
+```
 
 ## Method 1: Using Online Tools (Easiest)
 
